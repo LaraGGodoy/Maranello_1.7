@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Câmera Instantânea</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <!-- ESTRUTURA DA CÂMERA -->
+      <div class="polaroid-camera" id="camera">
+        <!-- flash: overlay que pisca ao disparar -->
+        <div class="flash" id="flash"></div>
+
+        <div class="top">
+          <div class="viewfinder"></div>
+        </div>
+
+        <div class="windows">
+          <div class="lens">
+            <div class="lens-inner"></div>
+            <div class="lens-glare"></div>
+          </div>
+          <!-- BOTÃO DE DISPARO -->
+          <button id="button" type="button" aria-label="Tirar foto"></button>
+          <div class="sensor"></div>
+          <div class="dot"></div>
+          <div class="stripes">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- PARTE INFERIOR + SLOT DE SAÍDA -->
+        <div class="bottom">
+          <div class="slot"></div>
+        </div>
+      </div>
+
+      <div class="shadow"></div>
+
+      <!-- POLAROID (elemento separado da câmera) -->
+      <div class="polaroid" id="photo">
+        <div class="polaroid-front">
+          <div class="polaroid-image">
+            <!-- SUBSTITUA AQUI O CAMINHO DA SUA IMAGEM -->
+            <img id="photo-img" src="foto.jpg" alt="Fotografia instantânea" />
+            <div class="develop" id="develop"></div>
+          </div>
+          <!-- LEGENDA (temporária) -->
+          <p class="polaroid-caption">LEGENDA AQUI</p>
+        </div>
+        <!-- ESPAÇO RESERVADO PARA O VERSO (etapa 2) -->
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

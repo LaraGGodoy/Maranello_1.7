@@ -1,0 +1,262 @@
+/* PALETA */
+:root {
+  --camel: #c6b39a;
+  --boho: #7b694e;
+  --rubine: #8d3a3c;
+  --tamarind: #3b1319;
+  --roast: #280b0f;
+
+  --camera-w: 320px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 30%, var(--tamarind), var(--roast));
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--camel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  overflow-x: hidden;
+}
+
+/* palco central */
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* CÂMERA */
+.polaroid-camera {
+  position: relative;
+  width: var(--camera-w);
+  max-width: 90vw;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 0.18s ease;
+}
+.polaroid-camera.shake { animation: shake 0.35s ease; }
+
+@keyframes shake {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-6px) rotate(-0.8deg); }
+  60% { transform: translateY(3px) rotate(0.6deg); }
+}
+
+.top {
+  height: 34px;
+  background: var(--camel);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border-radius: 22px 22px 0 0;
+}
+.viewfinder {
+  width: 54px;
+  height: 22px;
+  border-radius: 6px 6px 0 0;
+  background: var(--tamarind);
+}
+
+.windows {
+  position: relative;
+  background: linear-gradient(180deg, #efe6d7, var(--camel));
+  padding: 26px 0 34px;
+  display: flex;
+  justify-content: center;
+}
+
+.lens {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: var(--roast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 8px var(--boho);
+}
+.lens-inner {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--camel), var(--boho) 45%, var(--roast));
+}
+.lens-glare {
+  position: absolute;
+  top: 22px; left: 26px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* botão de disparo */
+#button {
+  position: absolute;
+  left: 22px;
+  top: 62px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: var(--rubine);
+  cursor: pointer;
+  box-shadow: 0 5px 0 var(--tamarind);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+#button:hover { filter: brightness(1.08); }
+#button.pressed {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 var(--tamarind);
+}
+#button:disabled { cursor: default; }
+
+.sensor {
+  position: absolute;
+  right: 24px; top: 34px;
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  background: var(--boho);
+  display: block;
+  box-shadow: inset 0 0 0 6px var(--camel);
+}
+.dot {
+  position: absolute;
+  right: 34px; bottom: 46px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--tamarind);
+}
+.stripes {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+}
+.stripes span { width: 6px; height: 26px; background: var(--boho); }
+.stripes span:nth-child(2) { background: var(--rubine); }
+.stripes span:nth-child(3) { background: var(--tamarind); }
+
+/* base + slot */
+.bottom {
+  height: 62px;
+  background: linear-gradient(180deg, var(--tamarind), var(--roast));
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+.slot {
+  width: 62%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.shadow {
+  width: 70%;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  filter: blur(6px);
+  margin-top: -6px;
+}
+
+/* FLASH */
+.flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.flash.fire { animation: flash 0.4s ease-out; }
+@keyframes flash {
+  0% { opacity: 0; }
+  15% { opacity: 0.95; }
+  100% { opacity: 0; }
+}
+
+/* POLAROID */
+.polaroid {
+  width: 190px;
+  margin-top: -34px;
+  background: #f7f3ec;
+  padding: 10px 10px 0;
+  border-radius: 3px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  /* começa escondida dentro do slot */
+  transform: translateY(-58px) scale(0.98);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+.polaroid.printing {
+  visibility: visible;
+  opacity: 1;
+  animation: print 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+@keyframes print {
+  0% { transform: translateY(-58px) scale(0.98); }
+  100% { transform: translateY(28px) scale(1) rotate(-1.5deg); }
+}
+
+.polaroid-front { position: relative; }
+
+.polaroid-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--boho);
+}
+.polaroid-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* REVELAÇÃO */
+.develop {
+  position: absolute;
+  inset: 0;
+  background: #f4f0e8;
+  opacity: 1;
+}
+.polaroid.revealed .develop {
+  transition: opacity 2.6s ease;
+  opacity: 0;
+}
+
+.polaroid-caption {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--boho);
+  text-transform: uppercase;
+}
+
+/* RESPONSIVO */
+@media (max-width: 420px) {
+  :root { --camera-w: 260px; }
+  .lens { width: 104px; height: 104px; }
+  .lens-inner { width: 54px; height: 54px; }
+  #button { left: 16px; top: 52px; width: 34px; height: 34px; }
+  .sensor { width: 36px; height: 36px; right: 18px; }
+  .polaroid { width: 160px; }
+}
