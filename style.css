@@ -13,7 +13,7 @@
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 30%, var(--tamarind), var(--roast));
+  background: radial-gradient(circle at 50% 50%, #F5F0EB, #EDE5DC);
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: var(--camel);
   display: flex;
@@ -64,6 +64,21 @@ body {
   height: 22px;
   border-radius: 6px 6px 0 0;
   background: var(--tamarind);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.viewfinder:hover {
+  filter: brightness(1.08);
+}
+.viewfinder.pressed {
+  transform: translateY(3px);
+}
+.viewfinder:disabled {
+  cursor: default;
 }
 
 .windows {
@@ -99,8 +114,8 @@ body {
   background: rgba(255, 255, 255, 0.35);
 }
 
-/* botão de disparo */
-#button {
+/* detalhe visual lateral */
+.side-button {
   position: absolute;
   left: 22px;
   top: 62px;
@@ -109,16 +124,8 @@ body {
   border: none;
   border-radius: 50%;
   background: var(--rubine);
-  cursor: pointer;
   box-shadow: 0 5px 0 var(--tamarind);
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
-#button:hover { filter: brightness(1.08); }
-#button.pressed {
-  transform: translateY(5px);
-  box-shadow: 0 0 0 var(--tamarind);
-}
-#button:disabled { cursor: default; }
 
 .sensor {
   position: absolute;
@@ -210,7 +217,7 @@ body {
 }
 @keyframes print {
   0% { transform: translateY(-58px) scale(0.98); }
-  100% { transform: translateY(28px) scale(1) rotate(-1.5deg); }
+  100% { transform: translateY(28px) scale(1); }
 }
 
 .polaroid-front { position: relative; }
@@ -225,6 +232,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -256,7 +264,7 @@ body {
   :root { --camera-w: 260px; }
   .lens { width: 104px; height: 104px; }
   .lens-inner { width: 54px; height: 54px; }
-  #button { left: 16px; top: 52px; width: 34px; height: 34px; }
+  .side-button { left: 16px; top: 52px; width: 34px; height: 34px; }
   .sensor { width: 36px; height: 36px; right: 18px; }
   .polaroid { width: 160px; }
 }
