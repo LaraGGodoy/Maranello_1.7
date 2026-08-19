@@ -309,14 +309,15 @@ body {
 }
 
 .polaroid-caption {
-  height: 46px;
+  min-height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
   color: var(--boho);
-  text-transform: uppercase;
+  padding: 8px 12px;
 }
 
 /* RESPONSIVO */
