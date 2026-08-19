@@ -3,6 +3,7 @@ const button = document.getElementById("button");
 const flash = document.getElementById("flash");
 const camera = document.getElementById("camera");
 const photo = document.getElementById("photo");
+const photoInner = photo.querySelector(".polaroid-inner");
 
 let alreadyShot = false;
 
@@ -32,7 +33,28 @@ function shoot() {
   // revelação da imagem após a foto sair
   setTimeout(() => {
     photo.classList.add("revealed");
+    
+    // adiciona ready apenas após a transição de revelação terminar (2.6s)
+    setTimeout(() => {
+      photo.classList.add("ready");
+    }, 2600);
   }, 2600);
 }
+
+// interação com a polaroid: clique para virar
+photo.addEventListener("click", () => {
+  if (!photo.classList.contains("ready")) return;
+  
+  // primeira interação: centralizar e virar
+  if (!photo.classList.contains("centered")) {
+    photo.classList.add("centered");
+    setTimeout(() => {
+      photoInner.classList.add("flipped");
+    }, 50);
+  } else {
+    // cliques subsequentes: apenas virar/desvirar
+    photoInner.classList.toggle("flipped");
+  }
+});
 
 button.addEventListener("click", shoot);
