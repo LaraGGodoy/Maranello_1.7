@@ -6,6 +6,7 @@ const photo = document.getElementById("photo");
 const photoInner = photo.querySelector(".polaroid-inner");
 
 let alreadyShot = false;
+let focusTransitioning = false;
 
 // disparo: botão -> flash -> impressão -> revelação
 function shoot() {
@@ -47,11 +48,37 @@ photo.addEventListener("click", () => {
   
   // primeira interação: centralizar e virar
   if (!photo.classList.contains("centered")) {
+    if (focusTransitioning) return;
+    focusTransitioning = true;
+
+    const currentRect = photo.getBoundingClientRect();
+    photo.style.position = "fixed";
+    photo.style.top = `${currentRect.top}px`;
+    photo.style.left = `${currentRect.left}px`;
+    photo.style.width = `${currentRect.width}px`;
+    photo.style.margin = "0";
+    photo.style.transform = "none";
+    photo.style.animation = "none";
     photo.classList.add("centered");
+
+    // Mantém a posição atual em um frame antes de iniciar o deslocamento.
+    void photo.offsetWidth;
+    requestAnimationFrame(() => {
+      photo.style.position = "";
+      photo.style.top = "";
+      photo.style.left = "";
+      photo.style.width = "";
+      photo.style.margin = "";
+      photo.style.transform = "";
+      photo.style.animation = "";
+    });
+
     setTimeout(() => {
       photoInner.classList.add("flipped");
-    }, 50);
+      focusTransitioning = false;
+    }, 200);
   } else {
+    if (focusTransitioning) return;
     // cliques subsequentes: apenas virar/desvirar
     photoInner.classList.toggle("flipped");
   }
